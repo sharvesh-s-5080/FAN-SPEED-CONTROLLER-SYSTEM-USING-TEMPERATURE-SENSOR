@@ -1,24 +1,23 @@
-
-# FAN-SPEED-CONTROLLER-SYSTEM-USING-TEMPERATURE-SENSOR
+## FAN-SPEED-CONTROLLER-SYSTEM-USING-TEMPERATURE-SENSOR
 ## EXP 1(A) FAN SPEED CONTROLLER SYSTEM USING TEMPERATURE SENSOR
+
 
 ### Aim:
 	To measure the Temperature using DHT11/DHT22/TMP36  sensor with Arduino UNO Board/ESP-32 using Tinker CAD.
 
-# Hardware / Software Tools required:
+### Hardware / Software Tools required:
 	PC/ Laptop with Internet connection
     Tinker CAD tool (Online)
 	Arduino UNO Board/ESP-32
 	Temperature Sensor (DHT11/DHT22/TMP36)
 
-# Circuit Diagram:
+### Circuit Diagram:
 
 ---
-To upload
---
+<img width="673" height="598" alt="image" src="https://github.com/user-attachments/assets/ab009695-4de5-4ed4-b99b-9f79f3c46a30" />
+---
 
-# Procedure // Modify the procedure based on your circuit
-
+### Procedure:
 Step 1: Set Up the Tinkercad Environment
 1.	Log in to Tinkercad: Open Tinkercad in your web browser and log in to your account.
 2.	Create a New Circuit: In the Tinkercad dashboard, click on "Circuits" and then select "Create New Circuit."
@@ -55,14 +54,44 @@ Step 7: Save Your Work
 2.	Save the Circuit: Click "Save" to keep your circuit design and code for future use.
 
 
-# Program
+### Program
 
----
-To upload
---
+```
+const int analogIn = A0;
+int humiditysensorOutput = 0;
+// Defining Variables
+int RawValue= 0;
+double Voltage = 0;
+double tempC = 0;
+double tempF = 0;
+void setup(){
+ Serial.begin(9600);
+ pinMode(A1, INPUT);
+}
+void loop(){
+ RawValue = analogRead(analogIn);
+ Voltage = (RawValue / 1023.0) * 5000; // 5000 to get millivots.
+ tempC = (Voltage-500) * 0.1; // 500 is the offset
+ tempF = (tempC * 1.8) + 32; // convert to F
+ Serial.print("Raw Value = " );
+ Serial.print(RawValue);
+ Serial.print("\t milli volts = ");
+ Serial.print(Voltage,0); //
+ Serial.print("\t Temperature in C = ");
+ Serial.print(tempC,1);
+ Serial.print("\t Temperature in F = ");
+ Serial.println(tempF,1);
+ humiditysensorOutput = analogRead(A1);
+ Serial.print("Humidity: "); // Printing out Humidity Percentage
+ Serial.print(map(humiditysensorOutput, 0, 1023, 10, 70));
+ Serial.println("%");
+ delay(5000); //iterate every 5 seconds
+}
+```
+### Output
+<img width="1010" height="247" alt="image" src="https://github.com/user-attachments/assets/1a48b168-3d53-405b-842e-d11436041730" />
 
-# Result
 
----
-To upload
---
+### Result
+
+The experiment to measure the temperature using the DHT11/DHT22/TMP36 sensor with Arduino UNO on Tinkercad has been successfully completed and verified. The system was able to accurately sense and display temperature (in both Celsius and Fahrenheit) and humidity values through the Arduino serial monitor. All procedure steps, including hardware setup, circuit simulation, and code validation, were performed as planned. The experimental results confirm the circuit and program function as intended.
